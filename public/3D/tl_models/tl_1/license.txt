@@ -1,0 +1,11 @@
+Model Information:
+* title:	NYC 80's Traffic Light
+* source:	https://sketchfab.com/3d-models/nyc-80s-traffic-light-bad8aa4988474919be8f48920dde7e3d
+* author:	evgenymur (https://sketchfab.com/evgenymur)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "NYC 80's Traffic Light" (https://sketchfab.com/3d-models/nyc-80s-traffic-light-bad8aa4988474919be8f48920dde7e3d) by evgenymur (https://sketchfab.com/evgenymur) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

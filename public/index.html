@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Pacman</title>
+    <!-- three.min.js r87 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <!-- GLTFLoader.js -->
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r92/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/OrbitControls.min.js"></script>
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <section class="dashboard">
+      <div class="navbar">
+        <div class="navbar-title">
+          <p>Traffic App</p>
+        </div>
+        <div class="navbar-btns">
+          <button class="start" id="start">Start Simultaion</button>
+        </div>
+      </div>
+      <div class="mainContainer">
+        <div class="gameContainer" id="game-container">
+          <canvas id="game"></canvas>
+        </div>
+      </div>
+      <footer>
+        <p>Aplication created and designed by Carlos Vega, Jorge Delgado and Oscar Ramírez. 2022.</p>
+      </footer>
+    </section>
+    <script src="JS/main.js" type="module"> </script>
+  </body>
+</html>

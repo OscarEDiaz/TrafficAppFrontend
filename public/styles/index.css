@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Lato;
+}
+
+.dashboard {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.navbar {
+  height: 70px;
+  width: 100%;
+  background-color: #0a0a0a;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-grow: 0;
+
+  color: #ffffff;
+}
+
+.navbar-title {
+  height: 100%;
+  width: 50%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding-left: 30px;
+}
+
+.navbar-btns {
+  height: 100%;
+  width: 50%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-right: 30px;
+}
+
+.start {
+  text-decoration: none;
+
+  background-color: #242424;
+  color: #f8d23a;
+
+  padding: 10px;
+
+  border-radius: 10px;
+  border: none;
+}
+
+.start:hover {
+  background-color: #f8d23a;
+  color: #242424;
+  cursor: pointer;
+}
+
+.mainContainer {
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #1D1D1D;
+}
+
+.gameContainer {
+  width: 100%;
+  height: 100%;
+}
+
+footer {
+  height: 40px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding-left: 30px;
+
+  background-color: #151515;
+  color: #FFFFFF;
+}
