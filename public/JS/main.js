@@ -7,8 +7,7 @@ import { scene, camera, renderer, controls } from "./scene.js";
 
 // ----------- [ HTTP REQUESTS DEPS ] -----------
 const STEP_LOCATION = "/step";
-const BASE_URL = "http://localhost:5000"; // TODO: Change to ibmcloud URL
-
+const BASE_URL = "https://city-pipeline-lean-squirrel.mybluemix.net/"; // TODO: Change to ibmcloud URL
 
 // Dictionary to store current objects
 let objects = {
