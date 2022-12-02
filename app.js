@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors_proxy = require('cors-anywhere');
 
-var host = process.env.HOST || '0.0.0.0';
+var host = process.env.HOST || '127.0.0.1';
 // Listen on a specific port via the PORT environment variable
 var port = process.env.PORT || 8000;
 
