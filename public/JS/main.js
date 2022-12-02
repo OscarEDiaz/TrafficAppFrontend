@@ -76,7 +76,7 @@ let previous_time = Date.now();
 
 
 const fillCarObjects = async () => {
-  let res = await fetch(BASE_URL + STEP_LOCATION, {mode: 'no-cors'});
+  let res = await fetch(BASE_URL + STEP_LOCATION);
   let { data } = await res.json();
   let { car_coords } = data[0]
 
@@ -86,7 +86,7 @@ const fillCarObjects = async () => {
 }
 
 const fillTlObjects = async () => {
-  let res = await fetch(BASE_URL + STEP_LOCATION, {mode: 'no-cors'});
+  let res = await fetch(BASE_URL + STEP_LOCATION);
   let { data } = await res.json();
   let { tl_data } = data[0]
   
@@ -171,9 +171,7 @@ let render = async function () {
     // Prevent crashes
     if (STEP_LOCATION != ""){
       // Use GET method to retrieve coordinates
-      console.log("fetching");
-      let res = await fetch(BASE_URL + STEP_LOCATION, {mode: 'no-cors'}); 
-
+      let res = await fetch(BASE_URL + STEP_LOCATION); 
       // Deestructure coordinates from the response
       let { data } = await res.json();
 
