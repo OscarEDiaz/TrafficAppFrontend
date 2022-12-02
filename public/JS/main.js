@@ -7,7 +7,7 @@ import { scene, camera, renderer, controls } from "./scene.js";
 
 // ----------- [ HTTP REQUESTS DEPS ] -----------
 const STEP_LOCATION = "/step";
-const BASE_URL = "http://localhost:8000"; // TODO: Change to ibmcloud URL
+const BASE_URL = "https://city-pipeline-lean-squirrel.mybluemix.net"; // TODO: Change to ibmcloud URL
 
 // Dictionary to store current objects
 let objects = {
@@ -42,6 +42,9 @@ let init = () => {
 // Load the map
 init();
 
+// Loading text
+let loadingTimer = document.getElementById('load');
+
 // Start the animation
 let starterButton = document.getElementById('start');
 starterButton.onclick = async () => {
@@ -55,9 +58,14 @@ starterButton.onclick = async () => {
       fillCarObjects(data);
       fillTlObjects(data);
     })
-    .then(() => 
+    .then(() => {
+      loadingTimer.innerText = 'Loading...';
       render()
-    );
+      setTimeout(() => {
+        loadingTimer.innerText = ''; 
+      }, 500)
+    }
+  );
 
 }
 
@@ -78,7 +86,7 @@ addIntersections(scene)
 
 // -- { Animation configurations } --
 // Refresh screen every 500 ms
-const FRAMERATE = 300; 
+const FRAMERATE = 500; 
 let previous_time = Date.now();
 
 

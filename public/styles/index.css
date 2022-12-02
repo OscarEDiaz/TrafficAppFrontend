@@ -27,6 +27,10 @@
   color: #ffffff;
 }
 
+.loading {
+  margin-right: 10px;
+}
+
 .navbar-title {
   height: 100%;
   width: 50%;

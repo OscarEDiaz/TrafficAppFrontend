@@ -1,6 +1,10 @@
 <html>
   <head>
-    <title>Pacman</title>
+    <title>Traffic App</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <!-- three.min.js r87 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    <!-- GLTFLoader.js -->
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r92/examples/js/loaders/GLTFLoader.js"></script>
@@ -17,7 +21,8 @@
           <p>Traffic App</p>
         </div>
         <div class="navbar-btns">
-          <button class="start" id="start">Start Simultaion</button>
+          <p class="loading" id="load"></p>
+          <button class="start" id="start">Start Simulation</button>
         </div>
       </div>
       <div class="mainContainer">
