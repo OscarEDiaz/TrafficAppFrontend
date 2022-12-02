@@ -34,6 +34,7 @@ const loader3D = (type, id, path, scaleX, scaleY, scaleZ, scene) => {
 let init = () => {
   fetch( BASE_URL + "/simulation", {
     method: 'POST',
+    mode: 'no-cors'
   }).then(response => {
     console.log(response)
   });
