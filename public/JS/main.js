@@ -7,7 +7,9 @@ import { scene, camera, renderer, controls } from "./scene.js";
 
 // ----------- [ HTTP REQUESTS DEPS ] -----------
 const STEP_LOCATION = "/step";
-const BASE_URL = "https://city-pipeline-lean-squirrel.mybluemix.net/"; // TODO: Change to ibmcloud URL
+const CORS_URL = "http://0.0.0.0:8080/";
+const BASE_URL = "https://city-pipeline-lean-squirrel.mybluemix.net"; // TODO: Change to ibmcloud URL
+
 
 // Dictionary to store current objects
 let objects = {
@@ -30,7 +32,7 @@ const loader3D = (type, id, path, scaleX, scaleY, scaleZ, scene) => {
 // ----------- [ MAIN RENDERER PROGRAM ] -----------
 // -- { Start the simulation with a POST method } --
 let init = () => {
-  fetch(BASE_URL + "/simulation", {
+  fetch(CORS_URL + BASE_URL + "/simulation", {
     method: 'POST',
   }).then(response => {
     console.log(response)
@@ -73,7 +75,7 @@ let previous_time = Date.now();
 
 
 const fillCarObjects = async () => {
-  let res = await fetch(BASE_URL + STEP_LOCATION);
+  let res = await fetch(CORS_URL + BASE_URL + STEP_LOCATION);
   let { data } = await res.json();
   let { car_coords } = data[0]
 
@@ -83,7 +85,7 @@ const fillCarObjects = async () => {
 }
 
 const fillTlObjects = async () => {
-  let res = await fetch(BASE_URL + STEP_LOCATION);
+  let res = await fetch(CORS_URL + BASE_URL + STEP_LOCATION);
   let { data } = await res.json();
   let { tl_data } = data[0]
   
@@ -169,7 +171,7 @@ let render = async function () {
     if (STEP_LOCATION != ""){
       // Use GET method to retrieve coordinates
       console.log("fetching");
-      let res = await fetch(BASE_URL + STEP_LOCATION); 
+      let res = await fetch(CORS_URL + BASE_URL + STEP_LOCATION); 
 
       // Deestructure coordinates from the response
       let { data } = await res.json();
