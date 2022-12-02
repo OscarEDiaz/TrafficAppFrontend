@@ -70,7 +70,7 @@ addIntersections(scene)
 
 // -- { Animation configurations } --
 // Refresh screen every 500 ms
-const FRAMERATE = 300; 
+const FRAMERATE = 500; 
 let previous_time = Date.now();
 
 
