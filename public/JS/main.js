@@ -7,9 +7,7 @@ import { scene, camera, renderer, controls } from "./scene.js";
 
 // ----------- [ HTTP REQUESTS DEPS ] -----------
 const STEP_LOCATION = "/step";
-
-const BASE_URL = "https://city-pipeline-lean-squirrel.mybluemix.net"; // TODO: Change to ibmcloud URL
-
+const BASE_URL = "http://localhost:8000"; // TODO: Change to ibmcloud URL
 
 // Dictionary to store current objects
 let objects = {
@@ -32,11 +30,12 @@ const loader3D = (type, id, path, scaleX, scaleY, scaleZ, scene) => {
 // ----------- [ MAIN RENDERER PROGRAM ] -----------
 // -- { Start the simulation with a POST method } --
 let init = () => {
-  fetch( BASE_URL + "/simulation", {
+  fetch(BASE_URL + "/simulation", {
     method: 'POST',
-    mode: 'no-cors'
   }).then(response => {
-    console.log(response)
+    response.json().then((res) => {
+      console.log(res)
+    })
   });
 }
 
@@ -46,12 +45,20 @@ init();
 // Start the animation
 let starterButton = document.getElementById('start');
 starterButton.onclick = async () => {
-  fillCarObjects().then(() => {
-    fillTlObjects().then(() => {
-      console.log(objects)
-      render();
-    });
-  });
+  fetch(BASE_URL + STEP_LOCATION)
+    .then((res) => {
+      return res.json();
+    }).
+    then((res) => {
+      let { body } = res;
+      let {data} = JSON.parse(body);
+      fillCarObjects(data);
+      fillTlObjects(data);
+    })
+    .then(() => 
+      render()
+    );
+
 }
 
 // Works!!!
@@ -71,40 +78,36 @@ addIntersections(scene)
 
 // -- { Animation configurations } --
 // Refresh screen every 500 ms
-const FRAMERATE = 500; 
+const FRAMERATE = 300; 
 let previous_time = Date.now();
 
 
-const fillCarObjects = async () => {
-  let res = await fetch(BASE_URL + STEP_LOCATION);
-  let { data } = await res.json();
-  let { car_coords } = data[0]
-
-  for (const id in car_coords) {
-    loader3D('cars', id, './3D/car_models/car_1/scene.gltf', 3, 3, 3, scene);
-  }
-}
-
-const fillTlObjects = async () => {
-  let res = await fetch(BASE_URL + STEP_LOCATION);
-  let { data } = await res.json();
-  let { tl_data } = data[0]
+const fillCarObjects = (data) => {
+    let { car_coords } = data[0]
   
-  for (const id in tl_data ) {
-    let tlLight = new THREE.BoxGeometry(4, 10, 4);
-    let tlMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
-    let tlMesh = new THREE.Mesh(tlLight, tlMaterial);
-    objects['TL'][id] = tlMesh;
-    scene.add(objects['TL'][id])
-  }
+    for (const id in car_coords) {
+      loader3D('cars', id, './3D/car_models/car_1/scene.gltf', 3, 3, 3, scene);
+    }
 }
+
+const fillTlObjects = (data) => {
+    let { tl_data } = data[0]
+    
+    for (const id in tl_data ) {
+      let tlLight = new THREE.BoxGeometry(10, 10, 10);
+      let tlMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
+      let tlMesh = new THREE.Mesh(tlLight, tlMaterial);
+      objects['TL'][id] = tlMesh;
+      scene.add(objects['TL'][id])
+    }
+  }
+
 
 const updatePositions = (data, renderer) => {
   for (const step in data) {
     let { car_coords } = data[step]
     for (const id in car_coords) {
       let { x, z, direction } = car_coords[id];
-
       if (direction == "left") {
         objects['cars'][id].rotation.y = Math.PI/2;
       } else if (direction == "right") {
@@ -114,12 +117,9 @@ const updatePositions = (data, renderer) => {
       } else {
         objects['cars'][id].rotation.y = 0;
       }
-      
       objects['cars'][id].position.x = x;
       objects['cars'][id].position.z = z;
-
     }
-
     renderer.render(scene, camera);
   }
 }
@@ -131,7 +131,6 @@ const updateTrafficLights = (data, renderer) => {
       let { state } = tl_data[id]
   
       console.log(objects['TL'][id])
-
       if (state == 'g') {
         objects['TL'][id].material.color = new THREE.Color(0x00FF00);
       } else if (state == 'r') {
@@ -139,7 +138,6 @@ const updateTrafficLights = (data, renderer) => {
       } else {
         objects['TL'][id].material.color = new THREE.Color(0xFFFF00);
       }
-
       renderer.render(scene, camera);
     }
   }
@@ -171,18 +169,24 @@ let render = async function () {
     // Prevent crashes
     if (STEP_LOCATION != ""){
       // Use GET method to retrieve coordinates
-      let res = await fetch(BASE_URL + STEP_LOCATION); 
-      // Deestructure coordinates from the response
-      let { data } = await res.json();
+      fetch(BASE_URL + STEP_LOCATION)
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          let { body } = res;
+          let {data} = JSON.parse(body);
 
-      if (cond) {
-        let { tl_data } = data[0]
-        placeTL(tl_data, renderer);
-        cond = false;
-      }
-
-      updateTrafficLights(data, renderer);
-      updatePositions(data, renderer);
+          // Deestructure coordinates from the response
+          if (cond) {
+            let { tl_data } = data[0]
+            placeTL(tl_data, renderer);
+            cond = false;
+          }
+    
+          updateTrafficLights(data, renderer);
+          updatePositions(data, renderer);
+        });
     }
     
     previous_time = now;
